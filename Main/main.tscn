@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://bxt2f1twesmfo"]
+
+[node name="Main" type="Node2D" unique_id=815775251]
+
+[node name="Basic" type="Node2D" parent="." unique_id=1697121227]
+
+[node name="Camera2D" type="Camera2D" parent="Basic" unique_id=1915848472]
+
+[node name="Bg" type="Sprite2D" parent="Basic" unique_id=597548649]

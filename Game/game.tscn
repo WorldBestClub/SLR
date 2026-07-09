@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://cbi04ku017px7"]
+
+[node name="Game" type="Node2D" unique_id=973754319]
+
+[node name="Basic" type="Node2D" parent="." unique_id=617363485]
+
+[node name="Camera2D" type="Camera2D" parent="Basic" unique_id=1740049264]
+
+[node name="Bg" type="Polygon2D" parent="Basic" unique_id=124992969]
+color = Color(0, 0, 0, 1)
+polygon = PackedVector2Array(-720, -405, -720, 405, 720, 405, 720, -405)
