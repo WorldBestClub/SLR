@@ -1,6 +1,15 @@
 [gd_scene format=3 uid="uid://cbi04ku017px7"]
 
+[ext_resource type="Texture2D" uid="uid://c8hiinl1h6dce" path="res://Game/Objects/Xyz.png" id="1_7raqb"]
+[ext_resource type="Script" uid="uid://dofcycpygsncy" path="res://Game/game.gd" id="1_qmv3x"]
+[ext_resource type="Texture2D" uid="uid://bgt68ik6klwkq" path="res://Game/Objects/Coordinates.png" id="2_1r4le"]
+[ext_resource type="Texture2D" uid="uid://bkltdq0btcs8i" path="res://Game/Objects/Point.png" id="3_7raqb"]
+[ext_resource type="Script" uid="uid://b0efjt82kj6fh" path="res://Game/points.gd" id="4_oomkl"]
+[ext_resource type="Script" uid="uid://baohsykxu78ig" path="res://Game/line.gd" id="5_fwxkx"]
+[ext_resource type="Texture2D" uid="uid://ca0mtrs3cqs4l" path="res://Game/Objects/LLine.png" id="5_qmv3x"]
+
 [node name="Game" type="Node2D" unique_id=973754319]
+script = ExtResource("1_qmv3x")
 
 [node name="Basic" type="Node2D" parent="." unique_id=617363485]
 
@@ -8,4 +17,43 @@
 
 [node name="Bg" type="Polygon2D" parent="Basic" unique_id=124992969]
 color = Color(0, 0, 0, 1)
-polygon = PackedVector2Array(-720, -405, -720, 405, 720, 405, 720, -405)
+polygon = PackedVector2Array(-960, -540, -960, 540, 960, 540, 960, -540)
+
+[node name="Xyz" type="Sprite2D" parent="." unique_id=524499278]
+texture = ExtResource("1_7raqb")
+
+[node name="Coord" type="Sprite2D" parent="Xyz" unique_id=958960759]
+show_behind_parent = true
+texture = ExtResource("2_1r4le")
+
+[node name="Points" type="Node2D" parent="Xyz" unique_id=594387317]
+script = ExtResource("4_oomkl")
+
+[node name="Red" type="Sprite2D" parent="Xyz/Points" unique_id=2132882869]
+modulate = Color(1, 0.6, 0.6, 1)
+position = Vector2(80, -80)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("3_7raqb")
+
+[node name="Green" type="Sprite2D" parent="Xyz/Points" unique_id=1066954764]
+modulate = Color(0.5, 1, 0.5, 1)
+position = Vector2(160, -80)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("3_7raqb")
+
+[node name="Blue" type="Sprite2D" parent="Xyz/Points" unique_id=1119204914]
+modulate = Color(0.7, 0.7, 1, 1)
+position = Vector2(240, -80)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("3_7raqb")
+
+[node name="Line" type="Sprite2D" parent="." unique_id=1170242383]
+self_modulate = Color(1, 1, 1, 0)
+texture = ExtResource("5_qmv3x")
+script = ExtResource("5_fwxkx")
+
+[node name="Point" type="Sprite2D" parent="Line" unique_id=1563216895]
+visible = false
+texture = ExtResource("3_7raqb")
+
+[connection signal="drawn" from="Line" to="Xyz/Points" method="_on_line_drawn"]
