@@ -7,6 +7,19 @@
 [ext_resource type="Script" uid="uid://b0efjt82kj6fh" path="res://Game/points.gd" id="4_oomkl"]
 [ext_resource type="Script" uid="uid://baohsykxu78ig" path="res://Game/line.gd" id="5_fwxkx"]
 [ext_resource type="Texture2D" uid="uid://ca0mtrs3cqs4l" path="res://Game/Objects/LLine.png" id="5_qmv3x"]
+[ext_resource type="Script" uid="uid://ddceehe6yhsf3" path="res://Game/backend.gd" id="8_buohc"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_buohc"]
+font_size = 80
+stacked_outline_count = 4
+stacked_outline_0/size = 1
+stacked_outline_0/color = Color(0, 0, 0, 0.24705882)
+stacked_outline_1/size = 1
+stacked_outline_1/color = Color(0, 0, 0, 0.24705882)
+stacked_outline_2/size = 1
+stacked_outline_2/color = Color(0, 0, 0, 0.24705882)
+stacked_outline_3/size = 1
+stacked_outline_3/color = Color(0, 0, 0, 0.24705882)
 
 [node name="Game" type="Node2D" unique_id=973754319]
 script = ExtResource("1_qmv3x")
@@ -31,20 +44,17 @@ script = ExtResource("4_oomkl")
 
 [node name="Red" type="Sprite2D" parent="Xyz/Points" unique_id=2132882869]
 modulate = Color(1, 0.6, 0.6, 1)
-position = Vector2(80, -80)
-scale = Vector2(0.5, 0.5)
+self_modulate = Color(1, 1, 1, 0)
 texture = ExtResource("3_7raqb")
 
 [node name="Green" type="Sprite2D" parent="Xyz/Points" unique_id=1066954764]
 modulate = Color(0.5, 1, 0.5, 1)
-position = Vector2(160, -80)
-scale = Vector2(0.5, 0.5)
+self_modulate = Color(1, 1, 1, 0)
 texture = ExtResource("3_7raqb")
 
 [node name="Blue" type="Sprite2D" parent="Xyz/Points" unique_id=1119204914]
 modulate = Color(0.7, 0.7, 1, 1)
-position = Vector2(240, -80)
-scale = Vector2(0.5, 0.5)
+self_modulate = Color(1, 1, 1, 0)
 texture = ExtResource("3_7raqb")
 
 [node name="Line" type="Sprite2D" parent="." unique_id=1170242383]
@@ -56,4 +66,16 @@ script = ExtResource("5_fwxkx")
 visible = false
 texture = ExtResource("3_7raqb")
 
+[node name="Backend" type="Node2D" parent="." unique_id=665416439]
+script = ExtResource("8_buohc")
+
+[node name="Score" type="Label" parent="." unique_id=1536018016]
+offset_left = -913.5
+offset_top = -518.0
+offset_right = -789.5
+offset_bottom = -408.0
+text = "0"
+label_settings = SubResource("LabelSettings_buohc")
+
+[connection signal="score_change" from="Xyz/Points" to="Backend" method="_on_points_score_change"]
 [connection signal="drawn" from="Line" to="Xyz/Points" method="_on_line_drawn"]

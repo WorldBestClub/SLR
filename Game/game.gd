@@ -12,8 +12,6 @@ func _ready():
 		for i in range(60):
 			$Xyz/Coord.modulate.a += 0.25/60
 			await get_tree().create_timer(1.0/60).timeout
-	
-
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):

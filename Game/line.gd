@@ -2,6 +2,7 @@ extends Sprite2D
 
 var line = false
 var type = 1
+var color = 0
 signal drawn	# y=ax+b
 
 func _ready():
@@ -11,6 +12,11 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
+	
+	if Input.is_key_pressed(KEY_0):		# 색깔 바꾸기
+		color = 0
+		modulate.h = 0
+		modulate.s = 0.2
 	
 	if (Input.is_action_just_pressed("click_left")):	# 점 하나 찍기 (선 긋기 준비)
 		if (not line and self_modulate.a == 0):
@@ -27,7 +33,7 @@ func _process(_delta):
 		
 		elif (line and $Point.modulate.a == 1):			# 두 번째 점 찍기 (선 긋기)
 			line = false
-			drawn.emit(linear(position, get_child(1).global_position))	# y=ax+b
+			drawn.emit(linear(position, get_child(1).global_position), color)	# y=ax+b, 색깔
 			$Point.scale = Vector2(1, 1)
 			self_modulate.a = 1
 			get_child(1).modulate.a = 1
@@ -71,8 +77,8 @@ func _process(_delta):
 			$Point.modulate.a = 1
 			get_child(1).modulate.a = 0.5
 			
-func linear(p,q):
+func linear(p,_q):
 	#var a = (-p.y+q.y)/(p.x-q.x)	# y가 위로 올라갈수록 높아짐
-	var a = tan(rotation)
+	var a = -tan(rotation)
 	var b = (-p.y-(a*(p.x)))/80.0	# 화면의 좌표평면의 한 칸은 게임에서 80
 	return Vector2(a, b)
