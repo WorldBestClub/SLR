@@ -13,7 +13,7 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
 	
-	if Input.is_key_pressed(KEY_0):		# 색깔 바꾸기
+	if Input.is_key_pressed(KEY_1):		# 색깔 바꾸기
 		color = 0
 		modulate.h = 0
 		modulate.s = 0.2
