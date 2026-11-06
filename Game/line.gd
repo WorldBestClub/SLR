@@ -2,7 +2,7 @@ extends Sprite2D
 
 var line = false
 var type = 1
-var color = 0
+var color = 3	# 3은 흰색
 signal drawn	# y=ax+b
 
 func _ready():
@@ -12,11 +12,19 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
-	
-	if Input.is_key_pressed(KEY_1):		# 색깔 바꾸기
+	# 색깔 바꾸기 (RGB)
+	if Input.is_key_pressed(KEY_1) and Backend.points[0] is Array:
 		color = 0
 		modulate.h = 0
 		modulate.s = 0.2
+	if Input.is_key_pressed(KEY_2) and Backend.points[1] is Array:
+		color = 1
+		modulate.h = 1.0/3
+		modulate.s = 0.25
+	if Input.is_key_pressed(KEY_3) and Backend.points[2] is Array:
+		color = 2
+		modulate.h = 2.0/3
+		modulate.s = 0.15
 	
 	if (Input.is_action_just_pressed("click_left")):	# 점 하나 찍기 (선 긋기 준비)
 		if (not line and self_modulate.a == 0):
@@ -31,12 +39,13 @@ func _process(_delta):
 					self_modulate.a += 0.5/15
 				await get_tree().create_timer(1.0/60).timeout
 		
-		elif (line and $Point.modulate.a == 1):			# 두 번째 점 찍기 (선 긋기)
+		elif (line and $Point.modulate.a == 1 and color != 3):			# 두 번째 점 찍기 (선 긋기)
 			line = false
 			drawn.emit(linear(position, get_child(1).global_position), color)	# y=ax+b, 색깔
 			$Point.scale = Vector2(1, 1)
 			self_modulate.a = 1
 			get_child(1).modulate.a = 1
+			
 			for i in range(25):
 				$Point.scale.x -= 0.01
 				$Point.scale.y -= 0.01
@@ -56,6 +65,9 @@ func _process(_delta):
 			get_child(1).scale = Vector2(1, 1)
 			$Point.modulate.a = 1
 			get_child(1).modulate.a = 0.5
+			if (Backend.points[0] is not Array):
+				color = 3
+				modulate.s = 0
 	
 	if (line):	# 점 하나가 찍힌 상태 (선 긋기 준비)
 		look_at(get_global_mouse_position())

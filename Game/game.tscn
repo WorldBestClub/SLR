@@ -12,9 +12,37 @@
 [ext_resource type="Texture2D" uid="uid://udtafs2rqjkg" path="res://Game/Objects/00.png" id="9_glinl"]
 [ext_resource type="Texture2D" uid="uid://c2i0vr43keum" path="res://Game/Objects/01.png" id="10_glinl"]
 [ext_resource type="Texture2D" uid="uid://do5hrgwo5fg22" path="res://Game/Objects/02.png" id="11_72g0p"]
+[ext_resource type="FontFile" uid="uid://bn10ea6wn0b37" path="res://Game/cambria.ttc" id="13_72g0p"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_buohc"]
 font_size = 80
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4lqr4"]
+bg_color = Color(0, 0, 0, 0.49803922)
+border_width_left = 8
+border_width_top = 8
+border_width_right = 8
+border_width_bottom = 8
+border_color = Color(1, 1, 1, 1)
+border_blend = true
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_72g0p"]
+bg_color = Color(1, 1, 1, 1)
+shadow_color = Color(1, 1, 1, 0.49803922)
+shadow_size = 8
+
+[sub_resource type="Theme" id="Theme_qlwvw"]
+ProgressBar/colors/font_color = Color(0, 0, 0, 0)
+ProgressBar/colors/font_outline_color = Color(0, 0, 0, 0)
+ProgressBar/constants/outline_size = 0
+ProgressBar/font_sizes/font_size = 20
+ProgressBar/fonts/font = ExtResource("13_72g0p")
+ProgressBar/styles/background = SubResource("StyleBoxFlat_4lqr4")
+ProgressBar/styles/fill = SubResource("StyleBoxFlat_72g0p")
+
+[sub_resource type="LabelSettings" id="LabelSettings_72g0p"]
+font = ExtResource("13_72g0p")
+font_size = 32
 
 [node name="Game" type="Node2D" unique_id=973754319]
 script = ExtResource("1_qmv3x")
@@ -65,15 +93,18 @@ texture = ExtResource("3_7raqb")
 script = ExtResource("6_glinl")
 
 [node name="Red" type="Sprite2D" parent="Color" unique_id=1033409001]
-position = Vector2(-800, -160)
+position = Vector2(-835, -200)
+scale = Vector2(1.5, 1.5)
 texture = ExtResource("9_glinl")
 
 [node name="Green" type="Sprite2D" parent="Color" unique_id=99709900]
-position = Vector2(-800, 0)
+position = Vector2(-835, 0)
+scale = Vector2(1.5, 1.5)
 texture = ExtResource("10_glinl")
 
 [node name="Blue" type="Sprite2D" parent="Color" unique_id=20608096]
-position = Vector2(-800, 160)
+position = Vector2(-835, 200)
+scale = Vector2(1.5, 1.5)
 texture = ExtResource("11_72g0p")
 
 [node name="Backend" type="Node2D" parent="." unique_id=665416439]
@@ -87,5 +118,32 @@ offset_bottom = -408.0
 text = "0"
 label_settings = SubResource("LabelSettings_buohc")
 
-[connection signal="score_change" from="Xyz/Points" to="Backend" method="_on_points_score_change"]
+[node name="Energy" type="ProgressBar" parent="." unique_id=558730244]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 846.0
+offset_top = -490.0
+offset_right = 910.0
+offset_bottom = 490.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_qlwvw")
+step = 0.1
+value = 100.0
+fill_mode = 3
+
+[node name="Energy" type="Label" parent="Energy" unique_id=1783189852]
+modulate = Color(0, 0, 0, 1)
+layout_mode = 0
+offset_right = 64.0
+offset_bottom = 39.0
+pivot_offset_ratio = Vector2(0.5, 0.5)
+text = "100"
+label_settings = SubResource("LabelSettings_72g0p")
+horizontal_alignment = 1
+
+[connection signal="calculated" from="Xyz/Points" to="." method="_on_points_calculated"]
 [connection signal="drawn" from="Line" to="Xyz/Points" method="_on_line_drawn"]

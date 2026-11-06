@@ -3,12 +3,12 @@ extends Node2D
 var colors = [0,1,2]	# (현재 웨이브에서 나타날 수 있는) 점의 색깔
 # 0=빨간색, 1=초록색, 3=파란색
 #var numbers = [0,0,0]	# 점의 개수
-var points = [0,0,0]	# 점의 좌표 (색깔별)
+#	var points = [0,0,0]	# 점의 좌표 (색깔별)
 var allpoints = []		# 전체 점의 좌표 (중복 방지용)
 var LoF = [0,0,0]		# 적합선 (y=ax+b)
 var loss = [0,0,0]	# 손실함수 최솟값
 
-signal score_change
+signal calculated
 
 func _ready():
 	point(0)
@@ -59,15 +59,9 @@ func find(coords):		# 적합선 찾기
 func _on_line_drawn(equ, col):		# 선이 그어졌을 때
 	print("그은 선",equ)
 	var accuracy = 0.0	#그은 선의 손실의 합
-	for i in range(len(points[col])):
-		accuracy += ( points[col][i].y - ( equ[0]*(points[col][i].x) + equ[1] ))**2
-	print("그은 선의 손실",accuracy)
-	var meany = 0.0		#y좌표 평균
-	var deviation = 0.0	#y좌표 편차의 제곱의 합
-	for i in range(len(points[col])):
-		meany += points[col][i].y
-	meany = meany / len(points[col])
-	for i in range(len(points[col])):
-		deviation += (meany-points[col][i].y)**2
-	print("y좌표 편차의 제곱의 합",deviation)
-	score_change.emit((loss[col]-accuracy)/deviation)
+	if (Backend.points[col] is Array):
+		for i in range(len(Backend.points[col])):
+			accuracy += ( Backend.points[col][i].y - ( equ[0]*(Backend.points[col][i].x) + equ[1] ))**2
+		print("그은 선의 손실",accuracy)
+
+	calculated.emit((loss[col]-accuracy))

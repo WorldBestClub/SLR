@@ -6,18 +6,18 @@ func _ready():
 
 
 func _process(_delta):
-	if Input.is_key_pressed(KEY_1):		# 색깔 바꾸기 (R)
+	if Input.is_key_pressed(KEY_1) and Backend.points[0] is Array:		# 색깔 바꾸기 (R)
 		select(0)
-	elif Input.is_key_pressed(KEY_2):		# 색깔 바꾸기 (G)
+	elif Input.is_key_pressed(KEY_2) and Backend.points[1] is Array:		# 색깔 바꾸기 (G)
 		select(1)
-	elif Input.is_key_pressed(KEY_3):		# 색깔 바꾸기 (B)
+	elif Input.is_key_pressed(KEY_3) and Backend.points[2] is Array:		# 색깔 바꾸기 (B)
 		select(2)
 	
 	for i in range(3):
 		if (Backend.points[i] is Array):
 			get_child(i).modulate.a = 1
 		else:
-			get_child(i).modulate.a = 0.5
+			get_child(i).modulate.a = 0.33
 		
 
 func select(color):
